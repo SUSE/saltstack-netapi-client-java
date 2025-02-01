@@ -214,6 +214,7 @@ public class SaltClient {
             });
 
         target.ifPresent(t -> props.putAll(t.getProps()));
+        props.put("full_return", true);
         props.put("client", client.getValue());
         props.putAll(call.getPayload());
         props.putAll(custom);

@@ -17,6 +17,7 @@ import com.suse.salt.netapi.event.EventStream;
 import com.suse.salt.netapi.event.JobReturnEvent;
 import com.suse.salt.netapi.event.RunnerReturnEvent;
 import com.suse.salt.netapi.parser.JsonParser;
+import com.suse.salt.netapi.results.FullReturn;
 import com.suse.salt.netapi.results.Result;
 import com.suse.salt.netapi.results.Return;
 import com.suse.salt.netapi.results.SSHResult;
@@ -451,7 +452,8 @@ public class LocalCall<R> extends AbstractCall<R> {
         Client clientType = batch.isPresent() ? Client.LOCAL_BATCH : Client.LOCAL;
 
         Type xor = parameterizedType(null, Result.class, getReturnType().getType());
-        Type map = parameterizedType(null, Map.class, String.class, xor);
+        Type fullret = parameterizedType(null, FullReturn.class, xor);
+        Type map = parameterizedType(null, Map.class, String.class, fullret);
         Type listType = parameterizedType(null, List.class, map);
         Type wrapperType = parameterizedType(null, Return.class, listType);
         TypeToken<Return<List<Map<String, Result<R>>>>> typeToken =
